@@ -1,33 +1,31 @@
-const _gameboard = document.querySelector('#gameboard');
+const display = document.getElementById('gameboard');
+const player1_field = document.getElementById('player1');
+const player2_field = document.getElementById('player2');
+const start = document.getElementById('start');
 
-const create_board = () => {
-   let board_size = 3;
+function createGame(){
+   return {
 
-   for(let i=0; i < board_size * board_size; i++){
-      let div = document.createElement('div');
-      let p = document.createElement('p');
+      createPlayer: (player_1, player_2) =>{
+         return {
+            player_1,
+            player_2,
+            greet: () =>{
+               alert(`Welcome ${player_1} and ${player_2}. Let's play the Game!`);
+            }
+         }
+      }
 
-      div.style.border = '2px solid black';
-      div.style.width = '165px';
-      div.style.height = '100px';
-      div.style.cursor = 'pointer';
-      div.style.display = 'flex';
-      div.style.justifyContent = 'center';
-      div.style.alignItems = 'center';
+      //need to create another object
 
-      p.style.color = 'Red';
-      p.style.fontSize = '50px';
-
-      div.addEventListener('click', () =>{
-        p.innerText = 'X';
-      })
-
-      div.appendChild(p);
-      _gameboard.appendChild(div);
-   }
-
-   
+   };
 }
 
-create_board();
-
+start.addEventListener('click', () => {
+   let getPlayer1 = player1_field.value;
+   let getPlayer2 = player2_field.value;
+   
+   const init_game = createGame();
+   const players = init_game.createPlayer(getPlayer1, getPlayer2)
+   players.greet();
+})
