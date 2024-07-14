@@ -1,31 +1,46 @@
-const display = document.getElementById('gameboard');
-const player1_field = document.getElementById('player1');
-const player2_field = document.getElementById('player2');
 const start = document.getElementById('start');
 
-function createGame(){
-   return {
 
-      createPlayer: (player_1, player_2) =>{
-         return {
-            player_1,
-            player_2,
-            greet: () =>{
-               alert(`Welcome ${player_1} and ${player_2}. Let's play the Game!`);
-            }
+const gameboard = {
+
+   createPlayer: function(_player1, _player2){
+      return {
+         _player1,
+         _player2,
+         greet: () => {
+            alert(`Welcome ${_player1} and ${_player2}. Let's play the Game`);
          }
       }
+   },
 
-      //need to create another object
+   board: function(){
+      const _gameboard = document.querySelector('#gameboard');
+      const initializeBoard = [
+         ["", "", ""],
+         ["", "", ""],
+         ["", "", ""]
+      ]
 
-   };
+      for(let i = 0; i < initializeBoard.length; i++){
+        for(let j = 0; j < initializeBoard[i].length; j++){
+            let div = document.createElement('div');
+            _gameboard.appendChild(div)
+        }
+      }
+      return _gameboard;
+   },
+
+   // gameLogic:
+   
+     
 }
 
 start.addEventListener('click', () => {
-   let getPlayer1 = player1_field.value;
-   let getPlayer2 = player2_field.value;
+   let getPlayer1 = document.getElementById('player1').value;
+   let getPlayer2 = document.getElementById('player2').value;
    
-   const init_game = createGame();
-   const players = init_game.createPlayer(getPlayer1, getPlayer2)
+   const game = gameboard;
+   const players = game.createPlayer(getPlayer1, getPlayer2);
    players.greet();
+   game.board();
 })
