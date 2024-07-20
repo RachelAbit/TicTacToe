@@ -1,6 +1,5 @@
 const start = document.getElementById('start');
 
-
 const gameboard = {
 
    createPlayer: function(_player1, _player2){
@@ -8,31 +7,73 @@ const gameboard = {
          _player1,
          _player2,
          greet: () => {
-            alert(`Welcome ${_player1} and ${_player2}. Let's play the Game`);
+            document.getElementById('players-intro').innerText = `Welcome ${_player1} and ${_player2}. 
+            Let's play the Game. ${_player1} is 'X' and ${_player2} is 'O'`;
          }
       }
    },
 
    board: function(){
+
+      //this part is to initialize the tictac toe board and show it to the gameboard container
       const _gameboard = document.querySelector('#gameboard');
       const initializeBoard = [
          ["", "", ""],
          ["", "", ""],
          ["", "", ""]
       ]
+      _gameboard.innerText = '';
 
-      for(let i = 0; i < initializeBoard.length; i++){
-        for(let j = 0; j < initializeBoard[i].length; j++){
+      //this nested loop is to create columns and rows or cell
+      for(let row = 0; row < initializeBoard.length; row++){
+        for(let col = 0; col < initializeBoard[row].length; col++){
             let div = document.createElement('div');
-            _gameboard.appendChild(div)
+
+            gameboard.gameLogic.flow(div, row, col);
+            _gameboard.appendChild(div);
         }
       }
       return _gameboard;
    },
 
-   // gameLogic:
-   
-     
+   player_turns: {
+      turns: {return: currentP = 'O'}
+   },
+
+   gameLogic: {
+      checkWinner: function(){
+      
+      },
+
+      flow:  function (div, row, col){
+
+         div.addEventListener('click', () =>{
+            
+            if(div.innerHTML === ''){
+               let p = document.createElement('p');
+               if(gameboard.player_turns.turns === 'O'){
+                  p.style.color = 'Green';
+                  p.style.fontSize = '50px';
+                  p.innerHTML = 'O';
+                  document.querySelector('.name').innerText = document.getElementById('player1').value + ' turns';
+                  gameboard.player_turns.turns = 'X';
+               } else{
+                  p.style.color = 'Red';
+                  p.style.fontSize = '50px';
+                  p.innerHTML = 'X';
+                  document.querySelector('.name').innerText = document.getElementById('player2').value + ' turns';
+                  gameboard.player_turns.turns = 'O';
+               }
+               div.appendChild(p);
+               console.log(`Row: ${row}, Column: ${col}`);
+               
+            }else{
+               console.log('The box is already filled!')
+            }
+         })
+      
+      },
+   },
 }
 
 start.addEventListener('click', () => {
