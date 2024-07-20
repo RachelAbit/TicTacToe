@@ -8,7 +8,7 @@ body{
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    background-color: greenyellow;
+    background-color: rgb(237, 253, 252);
 }
 h1{
     text-align: center;
@@ -51,4 +51,15 @@ button#restart{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.name{
+    font-size: 20px;
+    color: black;
+    padding: 10px;
+    text-align: center;
+}
+#players-intro{
+    text-align: center;
+    color: rgb(64, 193, 236);
+    padding: 15px;
 }
