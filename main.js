@@ -1,4 +1,5 @@
 const start = document.getElementById('start');
+const restart = document.getElementById('restart');
 
 const gameboard = {
 
@@ -41,10 +42,6 @@ const gameboard = {
    },
 
    gameLogic: {
-      checkWinner: function(){
-      
-      },
-
       flow:  function (div, row, col){
 
          div.addEventListener('click', () =>{
@@ -71,8 +68,7 @@ const gameboard = {
                console.log('The box is already filled!')
             }
          })
-      
-      },
+      }
    },
 }
 
@@ -84,4 +80,7 @@ start.addEventListener('click', () => {
    const players = game.createPlayer(getPlayer1, getPlayer2);
    players.greet();
    game.board();
+})
+
+restart.addEventListener('click', () =>{
 })
