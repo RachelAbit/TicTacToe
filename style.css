@@ -43,7 +43,7 @@ button#restart{
     grid-template-columns: repeat(3, 1fr);
     transition: 5s;
 }
-#gameboard div {
+#gameboard div.cell {
     border: 2px solid black;
     width: 165px;
     height: 100px;
