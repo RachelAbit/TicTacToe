@@ -1,86 +1,58 @@
-const start = document.getElementById('start');
-const restart = document.getElementById('restart');
+const start = document.querySelector('#start');
+const restart = document.querySelector('#restart');
 
-const gameboard = {
-
-   createPlayer: function(_player1, _player2){
-      return {
-         _player1,
-         _player2,
-         greet: () => {
-            document.getElementById('players-intro').innerText = `Welcome ${_player1} and ${_player2}. 
-            Let's play the Game. ${_player1} is 'X' and ${_player2} is 'O'`;
-         }
-      }
-   },
-
-   board: function(){
-
-      //this part is to initialize the tictac toe board and show it to the gameboard container
-      const _gameboard = document.querySelector('#gameboard');
-      const initializeBoard = [
-         ["", "", ""],
-         ["", "", ""],
-         ["", "", ""]
-      ]
-      _gameboard.innerText = '';
-
-      //this nested loop is to create columns and rows or cell
-      for(let row = 0; row < initializeBoard.length; row++){
-        for(let col = 0; col < initializeBoard[row].length; col++){
-            let div = document.createElement('div');
-
-            gameboard.gameLogic.flow(div, row, col);
-            _gameboard.appendChild(div);
-        }
-      }
-      return _gameboard;
-   },
-
-   player_turns: {
-      turns: {return: currentP = 'O'}
-   },
-
-   gameLogic: {
-      flow:  function (div, row, col){
-
-         div.addEventListener('click', () =>{
-            
-            if(div.innerHTML === ''){
-               let p = document.createElement('p');
-               if(gameboard.player_turns.turns === 'O'){
-                  p.style.color = 'Green';
-                  p.style.fontSize = '50px';
-                  p.innerHTML = 'O';
-                  document.querySelector('.name').innerText = document.getElementById('player1').value + ' turns';
-                  gameboard.player_turns.turns = 'X';
-               } else{
-                  p.style.color = 'Red';
-                  p.style.fontSize = '50px';
-                  p.innerHTML = 'X';
-                  document.querySelector('.name').innerText = document.getElementById('player2').value + ' turns';
-                  gameboard.player_turns.turns = 'O';
-               }
-               div.appendChild(p);
-               console.log(`Row: ${row}, Column: ${col}`);
-               
-            }else{
-               console.log('The box is already filled!')
-            }
-         })
-      }
-   },
+const greet = {
+   greetPlayer: function(p1, p2){
+      return document.querySelector('#players-intro').innerText = `Welcome! ${p1} and ${p2}. ${p1} is X and ${p2} is O`
+   }
 }
 
-start.addEventListener('click', () => {
-   let getPlayer1 = document.getElementById('player1').value;
-   let getPlayer2 = document.getElementById('player2').value;
-   
-   const game = gameboard;
-   const players = game.createPlayer(getPlayer1, getPlayer2);
-   players.greet();
-   game.board();
-})
+const game = {
+   //this function has 2d array inside; those empty string will holds the letter X and O
+   board: function(){
+      let init_board = [
+         ['', '', '',],
+         ['', '', ''],
+         ['', '', '']
+      ]
+      return init_board
+   },
 
-restart.addEventListener('click', () =>{
+   displayBoard: function(){
+      const gameboard = document.querySelector('#gameboard');
+      gameboard.innerText = '';
+      const tictactoe_board = this.board();
+
+      for(let i=0; i < tictactoe_board.length; i++){
+         for(let j=0; j < tictactoe_board[i].length; j++){
+            let div = document.createElement('div');
+            div.classList.add('cell');
+
+            div.innerText = this.turns; //nagkaroon ng X sa bawat cell
+
+
+
+            // div.appendChild(p);
+            gameboard.appendChild(div);
+         }
+      }
+   }, 
+
+   turns: 'X'
+
+}
+
+start.addEventListener('click', () =>{
+   const playerfield_1 = document.querySelector('#player1').value;
+   const playerfield_2 = document.querySelector('#player2').value;
+
+   const g = greet;
+   const tictactoe = game;
+   if(playerfield_1 === '' || playerfield_2 === ''){
+      console.error('Please fill out the name fields');
+   } else {
+      console.log(g.greetPlayer(playerfield_1, playerfield_2));
+      console.log('Lets play the game!');
+      game.displayBoard();
+   }
 })
